@@ -28,6 +28,7 @@ Options:
     -a          Operates on all chroots in $CHROOTS.
                 If no other operation is specified, prints out the names of the chroots.
     -c CHROOTS  Directory the chroots are in. Default: $CHROOTS
+    -C          Clones the chroot specified via -n to $nameOfChroot2
     -b          Backs up the chroot to a tarball. Compression format is chosen
                 based on the tarball extension. Backups always take place before
                 other actions on a given chroot.
@@ -64,11 +65,12 @@ Options:
 . "$BINDIR/../installer/functions"
 
 # Process arguments
-while getopts 'abc:def:k:lm:ry' f; do
+while getopts 'abcC:def:k:lm:ry' f; do
     case "$f" in
     a) ALLCHROOTS='y';;
     b) BACKUP='y';;
     c) CHROOTS="`readlink -m "$OPTARG"`";;
+    C) CLONE='y';;
     d) DELETE='y';;
     e) ENCRYPT='y';;
     f) TARBALL="$OPTARG";;
